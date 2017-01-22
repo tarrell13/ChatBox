@@ -1,10 +1,16 @@
 #!/usr/local/bin/python3
 
 '''
+Authur:        Tarrell Fletcher
+Date Created : January 17, 2017
+Email:         Tarrell13@verizon.net
+
 Program Name: TheChat
 
-Synopsis: Program will allow chat capabilites between clients. Will have the ability to start a chat server and
-then allow others to join in
+Synopsis: Program will allow chat capabilities between clients. Program is multithreaded, which allows
+multiple connections to the server.
+
+Log: May be kinks when exiting the program. Still need to fully handle all exceptions but program is functional.
 '''
 
 import socket
@@ -19,6 +25,7 @@ HOST = ""
 PORT = 25000
 ADDR = (HOST, PORT)
 CONNECTION_LIST = []
+PLATFORM = platform.system()
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 '''Connect Client to the Server'''
@@ -39,6 +46,7 @@ def client_connect():
         client_dump_thread.start()
         communicate(client)
         client.close()
+        client_dump_thread.exit()
         sys.exit()
 
     except:
